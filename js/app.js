@@ -6,16 +6,22 @@ $(function() {
   console.log('Document is ready!');
 });
 
-$('#bt').click(function () {
-  var file = "data/page-1.json";
+var arr = 'data/page-1.json';
+// var file = rawFile.filter((v, i, a) => a.indexOf(v) === i);
 
-  $.getJSON(file,function (data) {
+
+// arr = arr.sort().filter((item,i) => !(arr[i] === arr[i+1] || arr[i-1] === arr[i]));
+// console.log(arr);
+
+$('#bt').click(function () {
+  $.getJSON(arr,function (data) {
     $.each(data, function (index, value) {
-      //Append or insert data to select element
       $('#sel').append('<option value = " ' + value.ID + '">' + value.keyword + '</option>');
     });
   });
 });
+
+
 
 //Show selected value
 $('#sel').change(function () {
@@ -46,7 +52,7 @@ Horn.prototype.render = function(container) {
 // $('.horn-keyword').empty();
 // $.each(list, function (i, p) {
 //   $('.horn-keyword').append($('<option></option>').val(p).html(p))
-// }); 
+// });
 
 
 $('main section').hide();
