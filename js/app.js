@@ -6,14 +6,9 @@ $(function() {
   console.log('Document is ready!');
 });
 
-var arr = 'data/page-1.json';
-// var file = rawFile.filter((v, i, a) => a.indexOf(v) === i);
-
-
-// arr = arr.sort().filter((item,i) => !(arr[i] === arr[i+1] || arr[i-1] === arr[i]));
-// console.log(arr);
-
 $('#bt').click(function () {
+  var arr = 'data/page-1.json';
+
   $.getJSON(arr,function (data) {
     $.each(data, function (index, value) {
       $('#sel').append('<option value = " ' + value.ID + '">' + value.keyword + '</option>');
@@ -24,8 +19,11 @@ $('#bt').click(function () {
 
 
 //Show selected value
-$('#sel').change(function () {
-  $('#msg').text('Selected Item:  ' + this.options[this.selectedIndex].text);
+$('#sel').change (function () {
+  console.log('Selected Item:  ' + this.options[this.selectedIndex].text);
+  // let $this = $(this),
+  //   filterValue = $this.val;
+  // console.log(filterValue);
 });
 
 function Horn(horn) {
@@ -44,6 +42,7 @@ Horn.prototype.render = function(container) {
   $horn.find('.horn-title').text(this.title);
   $horn.find('img.horn-image').attr('src',this.image_url);
   $horn.find('.horn-description').text('Description:  ' + this.description);
+  $horn.find('.horn-keyword').attr('value', this.keyword);
   $container.append($horn);
 }
 
@@ -55,7 +54,7 @@ Horn.prototype.render = function(container) {
 // });
 
 
-$('main section').hide();
+// $('main section').hide();
 const ajaxSettings = {
   method:  'get',
   dataType:  'json'
@@ -76,3 +75,5 @@ $.ajax('data/page-1.json', ajaxSettings)
       actualHorn.render('main section');
     })
   });
+
+
