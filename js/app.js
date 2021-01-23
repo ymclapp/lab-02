@@ -6,25 +6,7 @@ $(function() {
   console.log('Document is ready!');
 });
 
-$('#bt').click(function () {
-  var arr = 'data/page-1.json';
 
-  $.getJSON(arr,function (data) {
-    $.each(data, function (index, value) {
-      $('#sel').append('<option value = " ' + value.ID + '">' + value.keyword + '</option>');
-    });
-  });
-});
-
-
-
-//Show selected value
-$('#sel').change (function () {
-  console.log('Selected Item:  ' + this.options[this.selectedIndex].text);
-  // let $this = $(this),
-  //   filterValue = $this.val;
-  // console.log(filterValue);
-});
 
 function Horn(horn) {
   this.title = horn.title;
@@ -75,5 +57,21 @@ $.ajax('data/page-1.json', ajaxSettings)
       actualHorn.render('main section');
     })
   });
+$('#bt').click(function () {
+  var arr = 'data/page-1.json';
+
+  $.getJSON(arr,function (data) {
+    $.each(data, function (index, value) {
+      $('#sel').append('<option value = " ' + value.ID + '">' + value.keyword + '</option>');
+    });
+  });
+});
 
 
+//Show selected value
+$('#sel').change (function () {
+  console.log('Selected Item:  ' + this.options[this.selectedIndex].text);
+  // let $this = $(this),
+  //   filterValue = $this.val;
+  // console.log(filterValue);
+});
