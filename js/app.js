@@ -7,14 +7,13 @@ $(function() {
 });
 
 
-
 function Horn(horn) {
   this.title = horn.title;
   this.image_url = horn.image_url;
   this.description = horn.description;
   this.keyword = horn.keyword;
   this.horns = horn.horns;
-}
+};
 
 Horn.prototype.render = function(container) {
   let $container = $(container);
@@ -46,17 +45,29 @@ const ajaxSettings = {
 
 
 console.log('about to AJAX', ajaxSettings);
-$.ajax('data/page-1.json', ajaxSettings)
-  .then(function (data) {
-    console.log(data);
-    const horn = data;
-    horn.forEach(horn => {
-      console.log(horn.title);
-      let actualHorn = new Horn(horn);
-      console.log(actualHorn);
-      actualHorn.render('main section');
-    })
-  });
+
+let images = null;
+$.ajax('./data/page-1.json', ajaxSettings)
+  .then(function(data) {
+    images = data;
+    renderImages('default');
+
+    // images.forEach(image => makeMyMenu(image));
+  })
+
+// $.ajax('data/page-1.json', ajaxSettings)   //<<--this worked to show all images
+//   .then(function (data) {
+//     console.log(data);
+//     const horn = data;
+//     horn.forEach(horn => {
+//       console.log(horn.title);
+//       let actualHorn = new Horn(horn);
+//       console.log(actualHorn);
+//       actualHorn.render('main section');
+//     })
+//   });
+
+
 $('#bt').click(function () {
   var arr = 'data/page-1.json';
 
@@ -68,6 +79,25 @@ $('#bt').click(function () {
 });
 
 
+
+function renderImages(filter) {
+  $('main').empty();
+  images.forEach((image) => {
+    let displayImage = new Image(image);
+    if (displayImage.keyword === filter) {
+      displayImage.render('main');
+    } else if (filter === 'default') {
+      displayImage.render('main');
+    }
+  });
+}
+renderImages.forEach((image) => {
+  let displayImage = new Image(image);
+  displayImage.render('main');
+
+});
+
+
 //Show selected value
 $('#sel').change (function () {
   console.log('Selected Item:  ' + this.options[this.selectedIndex].text);
@@ -75,3 +105,5 @@ $('#sel').change (function () {
   //   filterValue = $this.val;
   // console.log(filterValue);
 });
+
+renderImages();
